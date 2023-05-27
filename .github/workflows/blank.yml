@@ -82,6 +82,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: cmzj_WORKSPACE
+          path: /
           
       - name: 解压
         run:  |
