@@ -82,12 +82,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: cmzj_WORKSPACE
-          path: /
           
       - name: 解压
         run:  |
-          tar xvpfz /cmzj_package.tgz -C $GITHUB_WORKSPACE
-          rm -rf /cmzj_package.tgz
+          sudo mv $GITHUB_WORKSPACE/cmzj_WORKSPACE.tgz /cmzj_WORKSPACE.tgz 
+          tar xvpfz /cmzj_WORKSPACE.tgz  -C $GITHUB_WORKSPACE
+          sudo rm -rf /cmzj_WORKSPACE.tgz
           
       - name: Run a one-line script
         run: cat $GITHUB_ENV && ls
