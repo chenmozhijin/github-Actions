@@ -51,7 +51,7 @@ jobs:
           path: ENV
       - name: 压缩
         run:  |
-          cd $CMZJ_PACKAGE_ROOT_PATH
+          cd $GITHUB_WORKSPACE
           sudo tar cvpzf /cmzj_WORKSPACE.tgz *
           #sudo chown $USER:$GROUPS cmzj_WORKSPACE.tgz
       - name: 上传 cmzj_WORKSPACE
