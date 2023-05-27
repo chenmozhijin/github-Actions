@@ -45,13 +45,10 @@ jobs:
           cd $GITHUB_WORKSPACE
           sudo tar cvpzf /build1_WORKSPACE.tgz *
           cd $GITHUB_WORKSPACE
-          echo 1
-          env
-          echo 1
-          cat $GITHUB_ENV >> build1_ENV
-          echo 1
+          echo $DOWNLOAD_ROOT_PATH >> build1_ENV
+          echo $CMZJ_PACKAGE_ROOT_PATH >> build1_ENV
+          echo $CMZJ_PATCH_ROOT_PATH >> build1_ENV
           cat build1_ENV
-          echo 1
           ls
       - name: 上传build1_ENV
         uses: actions/upload-artifact@v3
