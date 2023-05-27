@@ -40,25 +40,25 @@ jobs:
           export CMZJ_PATCH_ROOT_PATH="$(pwd)"
           echo "CMZJ_PATCH_ROOT_PATH=$CMZJ_PATCH_ROOT_PATH" >> $GITHUB_ENV
           mkdir -p $CMZJ_PATCH_ROOT_PATH/firewall4/patches/ $CMZJ_PATCH_ROOT_PATH/libnftnl/patches/ $CMZJ_PATCH_ROOT_PATH/nftables/patches/ $CMZJ_PATCH_ROOT_PATH/hack-5.10 $CMZJ_PATCH_ROOT_PATH/hack-5.15 $CMZJ_PATCH_ROOT_PATH/hack-6.1 $CMZJ_PATCH_ROOT_PATH/dnsmasq $CMZJ_PATCH_ROOT_PATH/libubox $CMZJ_PATCH_ROOT_PATH/netdata
-          cd $GITHUB_WORKSPACE
-          cat $GITHUB_ENV
-          cat $GITHUB_ENV >> ENV
-          ls
-      - name: ENV
-        uses: actions/upload-artifact@v3
-        with:
-          name: cmzj_ENV
-          path: ENV
-      - name: 压缩
+      - name: 准备上传
         run:  |
           cd $GITHUB_WORKSPACE
-          sudo tar cvpzf /cmzj_WORKSPACE.tgz *
-          #sudo chown $USER:$GROUPS cmzj_WORKSPACE.tgz
-      - name: 上传 cmzj_WORKSPACE
+          sudo tar cvpzf /build1_WORKSPACE.tgz *
+          cd $GITHUB_WORKSPACE
+          cat $GITHUB_ENV
+          cat $GITHUB_ENV >> build1_ENV
+          ls
+      - name: 上传build1_ENV
         uses: actions/upload-artifact@v3
         with:
-          name: cmzj_WORKSPACE
-          path: /cmzj_WORKSPACE.tgz
+          name: build1_ENV
+          path: build1_ENV
+
+      - name: 上传 build1_WORKSPACE
+        uses: actions/upload-artifact@v3
+        with:
+          name: build1_WORKSPACE
+          path: /build1_WORKSPACE.tgz
 
   build2:
     # The type of runner that the job will run on
@@ -69,25 +69,25 @@ jobs:
       - name: 下载cmzj_package
         uses: actions/download-artifact@v3
         with:
-          name: cmzj_ENV
+          name: build1_ENV
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
           ls
-          cat ENV
-          cat ENV >> $GITHUB_ENV
+          cat build1_ENV
+          cat build1_ENV >> $GITHUB_ENV
           
-      - name: 下载cmzj_WORKSPACE
+      - name: 下载build1_WORKSPACE
         uses: actions/download-artifact@v3
         with:
-          name: cmzj_WORKSPACE
+          name: build1_WORKSPACE
           
       - name: 解压
         run:  |
-          sudo mv $GITHUB_WORKSPACE/cmzj_WORKSPACE.tgz /cmzj_WORKSPACE.tgz 
-          tar xvpfz /cmzj_WORKSPACE.tgz  -C $GITHUB_WORKSPACE
-          sudo rm -rf /cmzj_WORKSPACE.tgz
+          sudo mv $GITHUB_WORKSPACE/build1_WORKSPACE.tgz /build1_WORKSPACE.tgz 
+          tar xvpfz /build1_WORKSPACE.tgz  -C $GITHUB_WORKSPACE
+          sudo rm -rf /build1_WORKSPACE.tgz
           
       - name: Run a one-line script
         run: cat $GITHUB_ENV && ls
