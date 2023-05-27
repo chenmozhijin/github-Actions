@@ -16,16 +16,56 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: 建立工作文件夹
+        run:  |
+          cd $GITHUB_WORKSPACE
+          mkdir -p download
+          cd download
+          export DOWNLOAD_ROOT_PATH="$(pwd)"
+          echo "DOWNLOAD_ROOT_PATH=$DOWNLOAD_ROOT_PATH" >> $GITHUB_ENV
+          mkdir -p lede Lienol immortalwrt wongsyrone passwall turboacc other
+          cd $GITHUB_WORKSPACE
+          mkdir -p cmzj_package
+          cd cmzj_package
+          export CMZJ_PACKAGE_ROOT_PATH="$(pwd)"
+          echo "CMZJ_PACKAGE_ROOT_PATH=$CMZJ_PACKAGE_ROOT_PATH" >> $GITHUB_ENV
+          mkdir -p turboacc
+          cd $GITHUB_WORKSPACE
+          mkdir -p cmzj_patch
+          cd cmzj_patch
+          export CMZJ_PATCH_ROOT_PATH="$(pwd)"
+          echo "CMZJ_PATCH_ROOT_PATH=$CMZJ_PATCH_ROOT_PATH" >> $GITHUB_ENV
+          mkdir -p $CMZJ_PATCH_ROOT_PATH/firewall4/patches/ $CMZJ_PATCH_ROOT_PATH/libnftnl/patches/ $CMZJ_PATCH_ROOT_PATH/nftables/patches/ $CMZJ_PATCH_ROOT_PATH/hack-5.10 $CMZJ_PATCH_ROOT_PATH/hack-5.15 $CMZJ_PATCH_ROOT_PATH/hack-6.1 $CMZJ_PATCH_ROOT_PATH/dnsmasq $CMZJ_PATCH_ROOT_PATH/libubox $CMZJ_PATCH_ROOT_PATH/netdata
+          cd $GITHUB_WORKSPACE
+          echo $GITHUB_ENV
+          echo $GITHUB_ENV >> ENV
+      - name: ENV
+        uses: actions/upload-artifact@v3
+        with:
+          name: cmzj_ENV
+          path: ENV
+  build2:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: 下载cmzj_package
+        uses: actions/download-artifact@v3
+        with:
+          name: cmzj_ENV
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo ${{ evn.GITHUB_REPOSITORY }}
-
+        run: |
+          ls
+          cat ENV
+          echo ENV >> $GITHUB_ENV
+      - name: Run a one-line script
+        run: echo $GITHUB_ENV
+          
+          
