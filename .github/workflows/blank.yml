@@ -43,11 +43,23 @@ jobs:
           cd $GITHUB_WORKSPACE
           cat $GITHUB_ENV
           cat $GITHUB_ENV >> ENV
+          ls
       - name: ENV
         uses: actions/upload-artifact@v3
         with:
           name: cmzj_ENV
           path: ENV
+      - name: 压缩
+        run:  |
+          cd $CMZJ_PACKAGE_ROOT_PATH
+          sudo tar cvpzf /cmzj_WORKSPACE.tgz *
+          #sudo chown $USER:$GROUPS cmzj_WORKSPACE.tgz
+      - name: 上传 cmzj_WORKSPACE
+        uses: actions/upload-artifact@v3
+        with:
+          name: cmzj_WORKSPACE
+          path: /cmzj_WORKSPACE.tgz
+
   build2:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -65,7 +77,18 @@ jobs:
           ls
           cat ENV
           cat ENV >> $GITHUB_ENV
+          
+      - name: 下载cmzj_WORKSPACE
+        uses: actions/download-artifact@v3
+        with:
+          name: cmzj_WORKSPACE
+          
+      - name: 解压
+        run:  |
+          tar xvpfz /cmzj_package.tgz -C $GITHUB_WORKSPACE
+          rm -rf /cmzj_package.tgz
+          
       - name: Run a one-line script
-        run: cat $GITHUB_ENV
+        run: cat $GITHUB_ENV && ls
           
           
