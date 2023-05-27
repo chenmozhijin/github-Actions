@@ -41,8 +41,8 @@ jobs:
           echo "CMZJ_PATCH_ROOT_PATH=$CMZJ_PATCH_ROOT_PATH" >> $GITHUB_ENV
           mkdir -p $CMZJ_PATCH_ROOT_PATH/firewall4/patches/ $CMZJ_PATCH_ROOT_PATH/libnftnl/patches/ $CMZJ_PATCH_ROOT_PATH/nftables/patches/ $CMZJ_PATCH_ROOT_PATH/hack-5.10 $CMZJ_PATCH_ROOT_PATH/hack-5.15 $CMZJ_PATCH_ROOT_PATH/hack-6.1 $CMZJ_PATCH_ROOT_PATH/dnsmasq $CMZJ_PATCH_ROOT_PATH/libubox $CMZJ_PATCH_ROOT_PATH/netdata
           cd $GITHUB_WORKSPACE
-          echo $GITHUB_ENV
-          echo $GITHUB_ENV >> ENV
+          cat $GITHUB_ENV
+          cat $GITHUB_ENV >> ENV
       - name: ENV
         uses: actions/upload-artifact@v3
         with:
@@ -64,8 +64,8 @@ jobs:
         run: |
           ls
           cat ENV
-          echo ENV >> $GITHUB_ENV
+          cat ENV >> $GITHUB_ENV
       - name: Run a one-line script
-        run: echo $GITHUB_ENV
+        run: cat $GITHUB_ENV
           
           
