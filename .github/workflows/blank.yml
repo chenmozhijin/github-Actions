@@ -45,8 +45,13 @@ jobs:
           cd $GITHUB_WORKSPACE
           sudo tar cvpzf /build1_WORKSPACE.tgz *
           cd $GITHUB_WORKSPACE
+          echo 1
           cat $GITHUB_ENV
+          echo 1
           cat $GITHUB_ENV >> build1_ENV
+          echo 1
+          cat build1_ENV
+          echo 1
           ls
       - name: 上传build1_ENV
         uses: actions/upload-artifact@v3
