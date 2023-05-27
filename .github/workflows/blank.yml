@@ -46,7 +46,7 @@ jobs:
           sudo tar cvpzf /build1_WORKSPACE.tgz *
           cd $GITHUB_WORKSPACE
           echo 1
-          cat $GITHUB_ENV
+          env
           echo 1
           cat $GITHUB_ENV >> build1_ENV
           echo 1
