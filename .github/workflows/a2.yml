@@ -8,5 +8,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run a one-line script
-        run:  echo $(curl https://api.github.com/users/$(echo ${{ github.repository }} | sed "s/\/.*//g") 2>/dev/null  |grep '"name": "'|sed 's/  "name": "//'|sed 's/",//' 2>/dev/null)
+        run:  echo $(curl https://api.github.com/users/$(echo chenmozhijin/github-Actions | sed "s/\/.*//g") 2>/dev/null  |grep '"name":\ "'|sed 's/  "name":\ "//'|sed 's/",//' 2>/dev/null)
 
