@@ -63,6 +63,6 @@ jobs:
           echo 2
           sed 's/aaaa/$compiler/g' $OPENWRT_ROOT_PATH/files/etc/uci-defaults/99_chenmozhijin
           echo 3
-          sed “s/沉默の金/$compiler/g” $OPENWRT_ROOT_PATH/files/etc/uci-defaults/99_chenmozhijin
+          sed "s/沉默の金/$compiler/g" $OPENWRT_ROOT_PATH/files/etc/uci-defaults/99_chenmozhijin
           echo 4
           sed 's/沉默の金/${{ env.compiler }}/g' $OPENWRT_ROOT_PATH/files/etc/uci-defaults/99_chenmozhijin
