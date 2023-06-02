@@ -54,15 +54,7 @@ jobs:
       - name: test
         run:  |
           echo $(curl https://api.github.com/users/$(echo ${{ github.repository }} | sed "s/\/.*//g") 2>/dev/null  |grep '"name":\ "'|sed 's/  "name":\ "//'|sed 's/",//' 2>/dev/null)
-          export compiler=$(curl https://api.github.com/users/$(echo ${{ github.repository }} | sed "s/\/.*//g") 2>/dev/null  |grep '"name":\ "'|sed 's/  "name":\ "//'|sed 's/",//' 2>/dev/null)
-          echo "compiler=$compiler" >> $GITHUB_ENV
-          echo 0
-          echo $compiler
-          echo 1
-          sed 's/沉默の金/aaaa/g' $OPENWRT_ROOT_PATH/files/etc/uci-defaults/99_chenmozhijin
-          echo 2
-          sed 's/aaaa/$compiler/g' $OPENWRT_ROOT_PATH/files/etc/uci-defaults/99_chenmozhijin
-          echo 3
-          sed "s/沉默の金/$compiler/g" $OPENWRT_ROOT_PATH/files/etc/uci-defaults/99_chenmozhijin
-          echo 4
-          sed 's/沉默の金/${{ env.compiler }}/g' $OPENWRT_ROOT_PATH/files/etc/uci-defaults/99_chenmozhijin
+          compiler=$(curl https://api.github.com/users/$(echo ${{ github.repository }} | sed "s/\/.*//g") 2>/dev/null  |grep '"name":\ "'|sed 's/  "name":\ "//'|sed 's/",//' 2>/dev/null)
+          sed -i "s/沉默の金/$compiler/g" $OPENWRT_ROOT_PATH/files/etc/uci-defaults/99_chenmozhijin
+          cat $OPENWRT_ROOT_PATH/files/etc/uci-defaults/99_chenmozhijin | grep 'Compiled by'
+
