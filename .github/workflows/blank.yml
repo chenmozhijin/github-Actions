@@ -14,10 +14,10 @@ jobs:
       - name: 建立工作文件夹
         run:  |
           echo ${{ github.workspace }}
-          echo "11" > 00
-          echo "22" > 00
-          echo "33" > 00
-          echo "::error ::检查到软件包依赖问题：\n$(cat 00)"
+          echo "11" >> 00
+          echo "22" >> 00
+          echo "33" >> 00
+          echo -e "::error ::检查到软件包依赖问题：\n$(cat 00)"
           echo "::notice ::你编译的架构为，子架构为"
           
           
