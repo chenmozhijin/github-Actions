@@ -14,6 +14,7 @@ jobs:
       - name: 建立工作文件夹
         run:  |
           echo ${{ github.workspace }}
+          echo "::error ::OpenWrt-K不支持为5.10以下内核打补丁，如需编译请删除此步骤与turboacc的相关的步骤"
           echo "::notice ::你编译的架构为，子架构为"
           
           
