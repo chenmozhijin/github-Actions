@@ -14,5 +14,6 @@ jobs:
       - name: 建立工作文件夹
         run:  |
           echo ${{ github.workspace }}
+          echo "::notice ::你编译的架构为，子架构为"
           
           
