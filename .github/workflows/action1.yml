@@ -12,7 +12,13 @@ jobs:
         uses: actions/checkout@v3
         
       - name: 建立工作文件夹
-        run: ls -la $(find . -type d)
+        run: |
+          export CMZJ_PACKAGE_ROOT_PATH="$WORKSPACE_ROOT_PATH/cmzj_package"
+          export CMZJ_PATCH_ROOT_PATH="$WORKSPACE_ROOT_PATH/cmzj_patch"
+          export LOG_PATH="$WORKSPACE_ROOT_PATH/log"
+          echo "CMZJ_PACKAGE_ROOT_PATH=$CMZJ_PACKAGE_ROOT_PATH" >> $GITHUB_ENV
+          echo "CMZJ_PATCH_ROOT_PATH=$CMZJ_PATCH_ROOT_PATH" >> $GITHUB_ENV
+          echo "LOG_PATH=$LOG_PATH" >> $GITHUB_ENV
         
       - name: 建立工作文件夹
         uses: ./.github/workflows/
