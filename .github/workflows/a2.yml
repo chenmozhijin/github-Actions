@@ -11,50 +11,7 @@ jobs:
         uses: actions/checkout@v3
       
       - name: 建立工作文件夹
-        run:  |
-          cd $GITHUB_WORKSPACE
-          sudo mkdir -p workspace
-          sudo chown $USER:$GROUPS workspace
-          cd workspace
-          export WORKSPACE_ROOT_PATH="$(pwd)"
-          echo "WORKSPACE_ROOT_PATH=$WORKSPACE_ROOT_PATH" >> $GITHUB_ENV
-          cd $WORKSPACE_ROOT_PATH
-          mkdir -p cmzj_package
-          cd cmzj_package
-          export CMZJ_PACKAGE_ROOT_PATH="$(pwd)"
-          echo "CMZJ_PACKAGE_ROOT_PATH=$CMZJ_PACKAGE_ROOT_PATH" >> $GITHUB_ENV
-          cd $WORKSPACE_ROOT_PATH
-          mkdir -p cmzj_patch
-          cd cmzj_patch
-          export CMZJ_PATCH_ROOT_PATH="$(pwd)"
-          echo "CMZJ_PATCH_ROOT_PATH=$CMZJ_PATCH_ROOT_PATH" >> $GITHUB_ENV
-          cd $WORKSPACE_ROOT_PATH
-          mkdir -p log
-          cd log
-          export LOG_PATH="$(pwd)"
-          echo "LOG_PATH=$LOG_PATH" >> $GITHUB_ENV
-          cd $GITHUB_WORKSPACE && cat $GITHUB_ENV >> build1_ENV
+        uses: ./.github/workflows/blank.yml
 
-      - name: 克隆源代码
-        working-directory:  ${{ env.WORKSPACE_ROOT_PATH }}
-        run: |
-          git clone https://git.openwrt.org/openwrt/openwrt.git
-          cd openwrt
-          export OPENWRT_ROOT_PATH="$(pwd)"
-          echo "OPENWRT_ROOT_PATH=$OPENWRT_ROOT_PATH" >> $GITHUB_ENV
-          cd $GITHUB_WORKSPACE && cat $GITHUB_ENV >> build1_ENV
-      - name: 复制自定义文件
-        run: |
-          cp -r files $OPENWRT_ROOT_PATH/files
-          
-          
-      - name: Run a one-line script
-        run:  echo $(curl https://api.github.com/users/$(echo ${{ github.repository }} | sed "s/\/.*//g") 2>/dev/null  |grep '"name":\ "'|sed 's/  "name":\ "//'|sed 's/",//' 2>/dev/null)
-        
-      - name: test
-        run:  |
-          echo $(curl https://api.github.com/users/$(echo ${{ github.repository }} | sed "s/\/.*//g") 2>/dev/null  |grep '"name":\ "'|sed 's/  "name":\ "//'|sed 's/",//' 2>/dev/null)
-          compiler=$(curl https://api.github.com/users/$(echo ${{ github.repository }} | sed "s/\/.*//g") 2>/dev/null  |grep '"name":\ "'|sed 's/  "name":\ "//'|sed 's/",//' 2>/dev/null)
-          sed -i "s/Compiled by 沉默の金/Compiled by $compiler/g" $OPENWRT_ROOT_PATH/files/etc/uci-defaults/99_chenmozhijin
-          cat $OPENWRT_ROOT_PATH/files/etc/uci-defaults/99_chenmozhijin | grep 'Compiled by'
-
+      - name: 建立工作文件夹
+        run: ls -la $(find . -type d)
