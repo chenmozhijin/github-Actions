@@ -1,6 +1,6 @@
 name: 'Hello World'
 description: 'test'
-runs: |
+runs: 
   using: "composite"
   steps:
         - run: echo ${{ github.workspace }}
