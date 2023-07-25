@@ -1,6 +1,7 @@
 
 name: a2
 on:
+  workflow_call:
   workflow_dispatch:
 jobs:
 
