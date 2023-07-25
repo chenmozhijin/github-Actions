@@ -37,7 +37,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        aa: ${{ needs.build.outputs.aaa }}
+        aa: ${{ fromJSON(needs.build.outputs.aaa) }}
     steps:
      - name: 建立工作文件夹
        run: |
