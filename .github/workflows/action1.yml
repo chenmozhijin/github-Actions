@@ -7,6 +7,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    outputs:
+      aaa: ${{ steps.a.outputs.aaa }}
     steps:
       - name: 将存储库签出到运行器
         uses: actions/checkout@v3
@@ -25,3 +27,18 @@ jobs:
 
       - name: 建立工作文件夹
         run: ls -la $(find . -type d)
+
+      - name: 建立工作文件夹
+        id: a
+        run: echo "aaa=[a,b,c]" >> $GITHUB_OUTPUT
+
+  example_matrix:
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        aa: ${{ needs.build.outputs.aaa }}
+    steps:
+     - name: 建立工作文件夹
+       run: |
+          echo "${{ matrix.aa }}"
