@@ -40,7 +40,7 @@ jobs:
 
       - name: 建立工作文件夹
         id: set-matrix
-        run: echo "matrix={include:[{'config':'cc','target:''x86','subtarget:''x64'}]}" >> $GITHUB_OUTPUT
+        run: echo "matrix={'include':[{'config':'cc','target:''x86','subtarget:''x64'},{'config':'bb','target:''x86','subtarget:''x64'}]}" >> $GITHUB_OUTPUT
 
   example_matrix:
     runs-on: ubuntu-latest
