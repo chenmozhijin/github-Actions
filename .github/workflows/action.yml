@@ -1,4 +1,4 @@
-name: 'Hello World'
+name: '测试'
 description: 'test'
 runs: 
   using: "composite"
