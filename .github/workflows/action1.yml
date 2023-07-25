@@ -16,6 +16,7 @@ jobs:
           sudo timedatectl set-timezone "Asia/Shanghai"
           starttime=$(date +"%y.%m.%d-%H")
           echo starttime=$starttime >> "$GITHUB_OUTPUT"
+          echo starttime=$starttime >> "$GITHUB_ENV"
           echo "::notice ::编译开始时间为：$starttime"
           
       - name: 将存储库签出到运行器
