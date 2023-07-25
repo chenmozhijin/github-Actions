@@ -9,7 +9,10 @@ jobs:
     steps:
       - name: 将存储库签出到运行器
         uses: actions/checkout@v3
-      
+        
+      - name: 建立工作文件夹
+        run: ls -la $(find . -type d)
+        
       - name: 建立工作文件夹
         uses: ./.github/workflows/blank.yml
 
