@@ -30,7 +30,7 @@ jobs:
 
       - name: 建立工作文件夹
         id: a
-        run: echo "aaa=['a','b','c']" >> $GITHUB_OUTPUT
+        run: echo "aaa='a'" >> $GITHUB_OUTPUT
 
   example_matrix:
     runs-on: ubuntu-latest
