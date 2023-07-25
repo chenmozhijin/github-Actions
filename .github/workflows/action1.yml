@@ -15,7 +15,7 @@ jobs:
         run: ls -la $(find . -type d)
         
       - name: 建立工作文件夹
-        uses: ./.github/workflows/action.yml
+        uses: ./.github/workflows/
 
       - name: 建立工作文件夹
         run: ls -la $(find . -type d)
